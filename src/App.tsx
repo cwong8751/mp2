@@ -1,11 +1,8 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
 import './normalize.css'
+import './App.css'
 import ListViewComponent from './components/ListViewComponent'
-import {searchMealByName, searchMealDetailbyId} from './api'
+import { searchMealByName, searchMealDetailbyId } from './api'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -15,15 +12,15 @@ function App() {
   const handleSearch = async () => {
     event?.preventDefault();
 
-    if(searchTerm.trim() !== '') {
+    if (searchTerm.trim() !== '') {
       const result = await searchMealByName(searchTerm);
 
-      if(result != null) {
+      if (result != null) {
         setMealList(result.meals);
         console.log('Search result:', result);
-      } 
+      }
 
-      if(result.meals == "no data found") {
+      if (result.meals == "no data found") {
         setShowNoDataFoundText(true);
         setMealList([]);
       }
@@ -32,12 +29,20 @@ function App() {
 
   return (
     <>
-     <header>
-            <h1>Meal DB browser</h1>
-            <p>View recipies and meals from mealdb.</p>
-            <input type="text" placeholder="search for a meal..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
-            <input type="submit" value="Search" onClick={handleSearch}/>
-        </header>
+      <header>
+        <h1>Meal DB browser</h1>
+        <p>View recipies and meals from mealdb.</p>
+
+        <div className="nav-container">
+          <button>Search</button>
+          <button>Gallery</button>
+        </div>
+
+        <div className="search-container">
+          <input type="text" placeholder="search for a meal..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+          <input type="submit" value="Search" onClick={handleSearch} />
+        </div>
+      </header>
       {
         showNoDataFoundText && (
           <p>No data found for the search term.</p>

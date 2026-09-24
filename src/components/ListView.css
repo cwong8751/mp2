@@ -1,0 +1,29 @@
+.card {
+    box-shadow: 0 1px 6px rgb(179, 175, 175);
+    padding: 8px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card > div {
+    text-align: left;
+}
+
+.card > img {
+    padding: 0px;
+    width: 20%;
+    height: 20%;
+    aspect-ratio: auto;
+    border-radius: 8px;
+}
+
+
+.list-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+}
