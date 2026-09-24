@@ -16,15 +16,24 @@ function ListViewComponent({ mealList }: { mealList: any[] }) {
 
         if (event.target.value === "alphabetic") {
             setSortBy("alphabetic");
-            setSortedMealList([...mealList].sort((a, b) => a.strMeal.localeCompare(b.strMeal)));
+            if (sortOrder === "ascending") {
+                setSortedMealList([...mealList].sort((a, b) => a.strMeal.localeCompare(b.strMeal)));
+            } else if (sortOrder === "descending") {
+                setSortedMealList([...mealList].sort((a, b) => b.strMeal.localeCompare(a.strMeal)));
+            }
         } else if (event.target.value === "recipeid") {
             setSortBy("recipeid");
-            setSortedMealList([...mealList].sort((a, b) => a.idMeal - b.idMeal));
+            if(sortOrder === "ascending") {
+                setSortedMealList([...mealList].sort((a, b) => a.idMeal - b.idMeal));
+            } else if (sortOrder === "descending") {
+                setSortedMealList([...mealList].sort((a, b) => b.idMeal - a.idMeal));
+            }
         }
     }
 
     const handleOrderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.value === "ascending") {
+            setSortOrder("ascending");
             if (sortBy === "alphabetic") {
                 setSortedMealList([...sortedMealList].sort((a, b) => a.strMeal.localeCompare(b.strMeal)));
             }
@@ -32,6 +41,7 @@ function ListViewComponent({ mealList }: { mealList: any[] }) {
                 setSortedMealList([...sortedMealList].sort((a, b) => a.idMeal - b.idMeal));
             }
         } else if (event.target.value === "descending") {
+            setSortOrder("descending");
             if (sortBy === "alphabetic") {
                 setSortedMealList([...sortedMealList].sort((a, b) => b.strMeal.localeCompare(a.strMeal)));
             }

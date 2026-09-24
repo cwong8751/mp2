@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './normalize.css'
 import './App.css'
 import ListViewComponent from './components/ListViewComponent'
-import { searchMealByName, searchMealDetailbyId } from './api'
+import { searchMealByName } from './api'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState<string>('');
