@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../normalize.css'
 import './ListView.css'
 
@@ -23,7 +24,7 @@ function ListViewComponent({ mealList }: { mealList: any[] }) {
             }
         } else if (event.target.value === "recipeid") {
             setSortBy("recipeid");
-            if(sortOrder === "ascending") {
+            if (sortOrder === "ascending") {
                 setSortedMealList([...mealList].sort((a, b) => a.idMeal - b.idMeal));
             } else if (sortOrder === "descending") {
                 setSortedMealList([...mealList].sort((a, b) => b.idMeal - a.idMeal));
@@ -76,12 +77,12 @@ function ListViewComponent({ mealList }: { mealList: any[] }) {
                 {
                     sortedMealList != null && sortedMealList.length > 0 &&
                     sortedMealList.map((meal) => (
-                        <div className="card" key={meal.idMeal}>
+                        <div className="card">
                             <div>
                                 <h2>{meal.strMeal}</h2>
                                 <h3>{meal.strCategory} | {meal.strArea ? meal.strArea : 'N/A'} | {meal.strCountry}</h3>
                                 <i>{meal.idMeal}</i>
-                                <p>See more</p>
+                                <Link to={`/recipeview/${meal.idMeal}`} key={meal.idMeal}>See More</Link>
                             </div>
                             <img src={meal.strMealThumb} alt={meal.strMeal} />
 
