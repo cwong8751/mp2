@@ -27,3 +27,10 @@
     padding: 20px;
     gap: 20px;
 }
+
+.sort-controller-div{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}

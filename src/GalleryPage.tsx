@@ -3,6 +3,7 @@ import ListViewComponent from "./components/ListViewComponent";
 import { searchMealByName } from "./api";
 import './App.css'
 import './normalize.css'
+import GalleryViewComponent from "./components/GalleryViewComponent";
 
 
 function GalleryPage() {
@@ -39,7 +40,7 @@ function GalleryPage() {
                     <p>No data found for the search term.</p>
                 )
             }
-            <ListViewComponent mealList={mealList} />
+            <GalleryViewComponent mealList={mealList} />
         </>
     )
 }

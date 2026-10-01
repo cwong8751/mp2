@@ -3,6 +3,7 @@ import ListViewComponent from "./components/ListViewComponent";
 import { searchMealByName } from "./api";
 import './App.css'
 import './normalize.css'
+import './SearchPage.css'
 
 function SearchPage() {
     const [searchTerm, setSearchTerm] = useState<string>('');

@@ -54,12 +54,14 @@ function ListViewComponent({ mealList }: { mealList: any[] }) {
 
     return (
         <>
-            <label htmlFor="sort">Sort by:</label>
-            <select onChange={handleSortChange}>
-                <option value="alphabetic">Alphabetic</option>
-                <option value="recipeid">Recipe ID</option>
-            </select>
-            <div>
+            <div className='sort-controller-div'>
+                <div>
+                    <label htmlFor="sort">Sort by:</label>
+                    <select onChange={handleSortChange}>
+                        <option value="alphabetic">Alphabetic</option>
+                        <option value="recipeid">Recipe ID</option>
+                    </select>
+                </div>
                 <form>
                     <input onChange={handleOrderChange} type="radio" id="sort-ascending" name="sort" value="ascending" />
                     <label htmlFor="sort-ascending">Ascending</label>

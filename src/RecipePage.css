@@ -1,0 +1,50 @@
+#ingredients,
+#instructions {
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/*
+table layout width both columns the same citation: 
+https://stackoverflow.com/questions/20375288/make-columns-of-equal-width-in-table
+*/
+table {
+    align-items: center;
+    text-align: center;
+    table-layout: fixed;
+    width: 100%;
+}
+
+
+/*
+table styling citation: 
+https://www.w3schools.com/css/css_table_style.asp
+*/
+
+tr:nth-child(even) {
+    background-color: beige;
+}
+
+thead {
+    background-color: rgb(255, 255, 165);
+}
+
+#instructions>ol {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    list-style-type: none;
+    text-align: center;
+}
+
+.recipe-controller-div{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

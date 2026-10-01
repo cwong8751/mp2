@@ -1,6 +1,7 @@
 header {
   padding-left: 20px;
   padding-right: 20px;
+  background-color: beige;
 }
 
 .nav-container {
@@ -33,4 +34,9 @@ input[type="text"] {
   display: flex;
   flex-direction: row;
   gap: 10px;
+}
+
+footer {
+  padding: 20px;
+  background: beige;
 }
