@@ -17,16 +17,54 @@ const searchMealByName = async (mealName: string) => {
 }
 
 const searchMealDetailbyId = async (mealId: string) => {
-    try{
-        const url = api_url + api_url_key + '/lookup.php?i=' + mealId;
-        const response = await axios.get(url);
+  try {
+    const url = api_url + api_url_key + '/lookup.php?i=' + mealId;
+    const response = await axios.get(url);
 
-        return response.data;
-    }
-    catch (error) {
-        console.error('Error searching meal detail by ID:', error);
-        throw error;
-    }
+    return response.data;
+  }
+  catch (error) {
+    console.error('Error searching meal detail by ID:', error);
+    throw error;
+  }
 }
 
-export { searchMealByName, searchMealDetailbyId };
+// get a list of categories 
+
+interface MealCategory {
+  idCategory: string;
+  strCategory: string;
+  strCategoryThumb: string;
+  strCategoryDescription: string;
+}
+
+interface FoodCategoriesResponse {
+  categories: MealCategory[];
+}
+
+const getFoodCategories = async (): Promise<FoodCategoriesResponse> => {
+  try {
+    const url = api_url + api_url_key + '/categories.php';
+    const response = await axios.get(url);
+
+    return response.data;
+  }
+  catch (error) {
+    console.error('Error getting all meal categories', error);
+    throw error;
+  }
+}
+
+const getAllFoodsInCategory = async (category: string) => {
+  try {
+    const url = api_url + api_url_key + '/filter.php?c=' + category;
+    const response = await axios.get(url);
+
+    return response.data;
+  }
+  catch (error) {
+    console.error('Error getting meals for category', error);
+  }
+}
+
+export { searchMealByName, searchMealDetailbyId, getAllFoodsInCategory, getFoodCategories };
