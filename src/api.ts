@@ -30,7 +30,7 @@ const searchMealDetailbyId = async (mealId: string) => {
 }
 
 // get a list of categories 
-
+// citation: https://claude.ai/share/9d2edf8b-bfc2-4ba3-91d6-1abd757e74c0
 interface MealCategory {
   idCategory: string;
   strCategory: string;

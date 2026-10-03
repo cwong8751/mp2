@@ -31,7 +31,7 @@ function SearchPage() {
     return (
         <>
             <div className="search-container">
-                <input type="text" placeholder="search for a meal..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                <input type="text" placeholder="search for a meal..." value={searchTerm} onChange={(e) => {setSearchTerm(e.target.value); handleSearch();}} />
                 <input type="submit" value="Search" onClick={handleSearch} />
             </div>
             {

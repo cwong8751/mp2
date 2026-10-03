@@ -18,6 +18,8 @@ function RecipePage() {
     const [ingredients, setIngredients] = useState<string[]>();
     const [measurements, setMeasurements] = useState<string[]>();
     const [source, setSource] = useState("");
+    const [nextLink, setNextLink] = useState("");
+    const [prevLink, setPrevLink] = useState("");
 
     useEffect(() => {
         if (!id) { return; }
@@ -83,8 +85,8 @@ function RecipePage() {
                     meal.strMeasure20,
                 ].filter(Boolean));
 
-               // some recipes have a dedicated "step x" text
-               //citation: https://claude.ai/share/966ce5f5-55e2-4241-a537-bcebb92c25a5 
+                // some recipes have a dedicated "step x" text
+                //citation: https://claude.ai/share/966ce5f5-55e2-4241-a537-bcebb92c25a5 
 
                 setMealInstructions(
                     meal.strInstructions
@@ -99,14 +101,60 @@ function RecipePage() {
         if (id != null && id != "") {
             getMealDetail();
         }
+
+        // get meal list 
+        // find the prev item and the next item from the list 
+        const libList = sessionStorage.getItem("meallist");
+        console.log(libList);
+        if (libList && libList !== "") {
+            const listMeals = JSON.parse(libList);
+
+            let prevId = 0;
+            let nextId = 0;
+
+            for (var i = 0; i < listMeals.length; i++) {
+                if (listMeals[i].idMeal === id) {
+                    // check if id is last
+                    if (i == listMeals.length - 1) {
+                        setNextLink(`endoflist`);
+                        prevId = listMeals[i - 1].idMeal;
+                        setPrevLink(`/recipeview/${prevId}`);
+                        break;
+                    } else if (i == 0) {
+                        setPrevLink('startoflist');
+                        nextId = listMeals[i + 1].idMeal;
+                        setNextLink(`/recipeview/${nextId}`);
+                        break;
+                    }
+                    else {
+                        // get previous id 
+                        prevId = listMeals[i - 1].idMeal;
+                        nextId = listMeals[i + 1].idMeal;
+                        setPrevLink(`/recipeview/${prevId}`);
+                        setNextLink(`/recipeview/${nextId}`);
+
+                        break;
+                    }
+                }
+            }
+        }
     }, [id])
 
     return (
         <>
             <div>
                 <div className="recipe-controller-div">
-                    <Link to="/">Previous Recipe</Link>
-                    <Link to="/">Next Recipe</Link>
+                    {
+                        prevLink !== "startoflist" && (
+                            <Link to={prevLink}>Previous Recipe</Link>
+                        )
+                    }
+
+                    {
+                        nextLink !== "endoflist" && (
+                            <Link to={nextLink}>Next Recipe</Link>
+                        )
+                    }
                 </div>
                 <h1>{mealName}</h1>
                 <h2><i>{mealArea} | {mealCategory} | {mealCountry}</i></h2>

@@ -9,7 +9,24 @@ function ListViewComponent({ mealList }: { mealList: any[] }) {
     const [sortOrder, setSortOrder] = useState<string>('ascending');
 
     useEffect(() => {
-        setSortedMealList(mealList);
+
+        const sortedFirstList = [...mealList].sort((a, b) => {
+            if (sortBy === "alphabetic") {
+                return sortOrder === "ascending"
+                    ? a.strMeal.localeCompare(b.strMeal)
+                    : b.strMeal.localeCompare(a.strMeal);
+            } else {
+                return sortOrder === "ascending"
+                    ? a.idMeal - b.idMeal
+                    : b.idMeal - a.idMeal;
+            }
+        });
+
+        setSortedMealList(sortedFirstList);
+
+        // put the meal list into sessionstorage so that the recipeview can view the entire list
+        // sessionstorage citation: https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+        sessionStorage.setItem('meallist', JSON.stringify(sortedFirstList));
     }, [mealList]);
 
     const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -63,7 +80,7 @@ function ListViewComponent({ mealList }: { mealList: any[] }) {
                     </select>
                 </div>
                 <form>
-                    <input onChange={handleOrderChange} type="radio" id="sort-ascending" name="sort" value="ascending" />
+                    <input onChange={handleOrderChange} type="radio" id="sort-ascending" name="sort" value="ascending" defaultChecked />
                     <label htmlFor="sort-ascending">Ascending</label>
                     <input onChange={handleOrderChange} type="radio" id="sort-descending" name="sort" value="descending" />
                     <label htmlFor="sort-descending">Descending</label>
@@ -73,7 +90,7 @@ function ListViewComponent({ mealList }: { mealList: any[] }) {
             <div className="list-container">
                 {
                     (sortedMealList == null || sortedMealList.length === 0) && (
-                        <p>No meals found.</p>
+                        <p>No meals found. Or type to start searching.</p>
                     )
                 }
                 {
